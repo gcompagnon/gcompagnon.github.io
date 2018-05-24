@@ -4,8 +4,8 @@ email: gcompagnon@hotmail.com
 
 layout: post
 title: Asset and Assets
-description: |
-Personal Blog and bookmarks about |
+description: > 
+Personal Blog and bookmarks about __
 Software | Computing | Project | Software | Engineer | Architecture | Innovation | Systems Integration | 
 Continuous Integration | Continuous Deployment | Continuous Delivery | Agile | Devops |
 C++ | C# | Java | Python | MultiThreading | Design Pattern | Commmando | Rapid Application Development |
@@ -17,6 +17,7 @@ Market Data | Benchmark | Index | Indexes Asset Reallocation | Rebalancing | Dri
 Risk Management | Delta | Alpha | Beta | Greeks| Tracking Error | VaR | Value at Risk | FRTB | expected shortfall | Stress Testing |
 Performance | Attribution | Allocation | Selection | Stock Picking | Total return | Scoring |
 CFA | AMF | ECB | Global Association of Risk Professionals | GARP | 
+
 twitter_username: gcompagnon
 github_username: gcompagnon
 linkedin_username: gcoompagnon
