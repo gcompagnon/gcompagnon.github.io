@@ -1,1 +1,9 @@
+
+title: Guillaume Compagnon / gcompagnon
+description: Blog and bookmarks
+google_analytics: UA-119758867-1
+show_downloads: true
 theme: jekyll-theme-minimal
+
+gems:
+- jekyll-mentions
