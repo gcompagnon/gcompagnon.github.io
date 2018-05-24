@@ -2,8 +2,10 @@
 author: Guillaume Compagnon
 email: gcompagnon@hotmail.com
 
+layout: post
 title: Asset and Assets
-description: > Personal Blog and bookmarks about |
+description: |
+Personal Blog and bookmarks about |
 Software | Computing | Project | Software | Engineer | Architecture | Innovation | Systems Integration | 
 Continuous Integration | Continuous Deployment | Continuous Delivery | Agile | Devops |
 C++ | C# | Java | Python | MultiThreading | Design Pattern | Commmando | Rapid Application Development |
@@ -20,8 +22,11 @@ github_username: gcompagnon
 linkedin_username: gcoompagnon
 
 google_analytics: UA-119758867-1
+
 show_downloads: true
-theme: jekyll-theme-minimal
+rss: rss
+
+theme: minima
 
 gems:
 - jekyll-mentions
