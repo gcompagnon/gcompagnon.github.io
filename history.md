@@ -1,3 +1,4 @@
-## 1.0.0 / 2018-05-24
+## 1.0.0
 
-  * minima Jekyll 
+* set minima as Jekyll theme
+* Google analytics support

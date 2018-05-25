@@ -7,10 +7,10 @@ permalink: /about/
 Some personal insights and opinion 
 
 You can find me on 
-[linkedin][https://www.linkedin.com/in/compagnon/] 
+[linkedin](https://www.linkedin.com/in/compagnon/)
 or 
-[about][https://about.me/gcompagnon/]
+[about](https://about.me/gcompagnon/)
 
 Public repos at GitHub:
-[Github][https://github.com/gcompagnon/] / 
-[Github][https://github.com/compagnon/]
+[GithubSandbox](https://github.com/gcompagnon/) / 
+[Github_released](https://github.com/compagnon/)
