@@ -4,8 +4,9 @@
 # between the top bar and the list of recent posts.
 # To change the home page layout, edit the _layouts/home.html file.
 #
-#layout: default
+layout: default
 
 # have a look on https://github.com/eslcc/eslcc.github.io
+# and https://github.com/jekyll/minima
 ---
 --- splash image  --- 
