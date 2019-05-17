@@ -1,4 +1,3 @@
-## 1.0.0
+## 1.0.1
 
-* set minima as Jekyll theme
-* Google analytics support
+* new layout

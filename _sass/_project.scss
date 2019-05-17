@@ -1,0 +1,59 @@
+@mixin status {
+
+    color: white;
+  
+    text-transform: uppercase;
+  
+    display: inline;
+  
+    padding: 2px;
+  
+  }
+  
+  
+  
+  .status-caption {
+  
+    @include status;
+  
+    background-color: #00796B;
+  
+    margin-left: 0.5em;
+  
+  }
+  
+  
+  
+  .status-ribbon {
+  
+    @include status;
+  
+  
+  
+    &.alpha, &.pre-alpha {
+  
+      background-color: #F44336;
+  
+    }
+  
+    &.beta {
+  
+      background-color: #d96628;
+  
+    }
+  
+    &.released, &.complete {
+  
+      background-color: #4CAF50;
+  
+    }
+  
+  }
+  
+  
+  
+  .project-title h1 {
+  
+    display: inline;
+  
+  }

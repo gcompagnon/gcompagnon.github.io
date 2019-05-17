@@ -1,0 +1,143 @@
+---
+---
+
+@import 'projects';
+
+body {
+    background-color: #141414;
+    color: #a2a2a2;
+    font-family: 'Roboto', sans-serif;
+}
+
+a {
+    color: #d96628;
+    text-decoration: none;
+}
+
+main {
+    max-width: 1000px;
+    margin: 0 auto;
+}
+
+.author {
+    color: #d96628;
+}
+
+.nav-container {
+    margin-top: 120px;
+}
+
+.home-logo {
+    display: block;
+    margin-top: 15%;
+}
+
+main {
+    z-index: 1000;
+}
+
+blockquote {
+    font-style: italic;
+}
+
+.orange-bg {
+    display: inline-block;
+    padding: 20px;
+    color: white;
+    font-size: 110%;
+}
+
+.welcome-header {
+    font-weight: 200;
+    font-size: 250%;
+    width: auto;
+}
+
+hr {
+    width: 15%;
+    margin: 0 auto;
+    border-color: #aaa;
+}
+
+.home-nav .item {
+    &:after {
+        content: '';
+        display: block;
+        border-bottom: 1px solid #EE5012;
+        position: relative;
+        top: 2px;
+        width: 0;
+        transition: 250ms width;
+    }
+    &:hover:after {
+        width: 100%;
+    }
+}
+
+#particles-js {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: -10;
+}
+
+.frontpage-excerpt {
+    background-color: rgba(217, 102, 40, 0.3);
+    padding: 1em;
+}
+
+
+.topbar {
+    position: fixed;
+    top: 0;
+    left: 25%;
+    width: 100%;
+    height: 75px;
+    max-width: 1000px;
+    margin: 0 auto;
+
+    .navlinks {
+        position: absolute;
+        top: 0;
+        left: 200px;
+        width: calc(100% - 200px);
+        height: 75px;
+        background-color: #d96628;
+        display: flex;
+        flex-direction: row;
+        .navlink {
+            color: white;
+            font-size: 150%;
+            text-decoration: none;
+            height: 75px;
+            padding: 0 25px;
+            vertical-align: middle;
+            display: flex;
+            align-items: center;
+            justify-content: flex-start;
+            &:hover {
+                background-color: darken(#d96628, 20%);
+            }
+        }
+    }
+}
+
+@keyframes fidget {
+    0% {
+        transform: rotate(0)
+    }
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.fidget-spinner {
+    animation: 2s fidget infinite linear;
+    transform-origin: left center;
+}
+
+img {
+    max-width: 800px;
+}
