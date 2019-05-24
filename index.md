@@ -8,5 +8,6 @@ layout: default
 
 # have a look on https://github.com/eslcc/eslcc.github.io
 # and https://github.com/jekyll/minima
+#  https://mademistakes.com/work/minimal-mistakes-jekyll-theme/ Minimal Mistakes. (https://github.com/dcparker88/dcparker88.github.io)
 ---
 --- splash image  --- 
