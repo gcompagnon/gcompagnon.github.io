@@ -8,13 +8,28 @@ output:
     highlight: pygments
 ---
 
+Mise en bouche :
+
+Robustification des conteneurs | 
+Les conteneurs sont dans l'oeil du cyclone médiatique: à la fois un rêve de dév agiliste et un cauchemar pour le devSecOps, avec son lot de vulnérabilités (CVE-2019-5736). Comme le conteneur (docker) est le système d'abstraction mis en avant par les plateformes cloud, dans leurs offres XaaS, cloud public et aussi IoT, ce talk a comme objectif de faire un tour rapide des principaux risques encourus, des bonnes pratiques et des nombreuses solutions en 2019 :
+en prévention : provisioning dans un registry, scan, contrôle d'intégrité d'image, la construction d'image dans le SDLC/pipeline,
+ et en protection d'un run (managed kubernetes)
+
+
+
+---
+
 #Les 7 propriétés d'un système robuste
 
 #Les principaux risques
 
 #Les avantages de la conteneurisation / le manque de priorité de Docker sur la sécurité
 
-#Virtualisation contre Containérisation
+https://www.guillaume-leduc.fr/docker-comme-solution-de-virtualisation-theorie.html
+
+#Virtualisation contre Containérisation / Micro-segementation
+
+https://zwischenzugs.com/2017/10/23/a-checklist-for-docker-in-the-enterprise-updated/
 
 #orchestrateur /Kubernetes  et risques démultipliés
 31,000 contributeurs ... imaginez le code-review
@@ -71,6 +86,8 @@ https://cloud.google.com/container-registry/docs/get-image-vulnerabilities
 
 ##gVisor
 ##Dive (util pour lister les layers)
+##Sysdig
+https://www.sysdig.com/
 
 ##OPA https://www.openpolicyagent.org/ K8s Admission Control / HTTP API Authorization
 
@@ -84,7 +101,7 @@ les sidecar :
 ##sonatype
 ##Tigera Zeor Trust Network Security
 ##Log Management/ Monitoring (elastic SumoLogic guardDuty Datadog prometheus)
-
+##OSSEC-docker
 
 ##Hypervisor based container frameworks
 Hyper Container https://hypercontainer.io/
