@@ -27,7 +27,7 @@ google_analytics: UA-119758867-1
 show_downloads: true
 rss: rss
 
-theme: jekyll-theme-hacker
+theme: minima
 
 gems:
 - jekyll-mentions
