@@ -1,10 +1,16 @@
 ---
 layout: post
 title: "WordPress chez OVH"
-categories: wordpress securité
+categories: wordpress OVH
 output:
   html_document:
     highlight: pygments
+output:
+  html_document:
+    highlight: pygments
+published: true
+comments: false
+tags: [wordpress, webhosting, ovh, hebergement]    
 ---
 
 #Configurations sur www / wordpress / php / mysql

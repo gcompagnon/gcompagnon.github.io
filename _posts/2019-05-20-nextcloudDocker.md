@@ -5,6 +5,9 @@ categories: container docker pipeline software factory
 output:
   html_document:
     highlight: pygments
+published: true
+comments: false
+tags: [container, nextcloud]
 ---
 Nextcloud.org (or Owncloud.org) is very nice *peace* of *software* ( PHP CSS JavaScript ) implementing a "files cloud" as Dropbox / Google Drive / Microsoft OneDrive / Apple iCloud / ...
 

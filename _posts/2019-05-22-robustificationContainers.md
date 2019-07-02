@@ -6,18 +6,20 @@ categories: container docker security
 output:
   html_document:
     highlight: pygments
+published: true
+comments: false
+tags: [container, docker, security, secops]    
 ---
-
-Mise en bouche :
 
 Robustification des conteneurs | 
 Les conteneurs sont dans l'oeil du cyclone médiatique: à la fois un rêve de dév agiliste et un cauchemar pour le devSecOps, avec son lot de vulnérabilités (CVE-2019-5736). Comme le conteneur (docker) est le système d'abstraction mis en avant par les plateformes cloud, dans leurs offres XaaS, cloud public et aussi IoT, ce talk a comme objectif de faire un tour rapide des principaux risques encourus, des bonnes pratiques et des nombreuses solutions en 2019 :
 en prévention : provisioning dans un registry, scan, contrôle d'intégrité d'image, la construction d'image dans le SDLC/pipeline,
  et en protection d'un run (managed kubernetes)
 
-
-
 ---
+
+[présentation faite à un meetup à Paris](/pdf/20190617_SecOps_meetup.pdf)
+
 
 #Les 7 propriétés d'un système robuste
 
@@ -75,7 +77,7 @@ https://github.com/mhausenblas/boring-is-cool
 http://containerz.info/
 
 So containers are really just Linux process groups on steroids. Using Linux kernel features such as namespaces, cgroups, and copy-on-write filesystems, containers allow you to manage application-level dependencies, such as runtimes or libraries:
-![alt text](/images/containers.png "LXC / ")
+![alt text](/images/20190522-containers.png "LXC / ")
 In contrast to virtual machines (VM), all containers on a machine share the same Linux kernel. Under the Open Container Initiative (OCI), both the container runtime aspects as well as the container image format has been de-fact standardized.
 For cases where the learning curve and operational overhead of a full-blown container orchestrator such as Kubernetes can not be justified, you can run single containers supervised by systemd or, if you run in the public cloud, leverage offerings such as AWS Fargate or Azure Container Instances.
 

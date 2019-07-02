@@ -4,7 +4,7 @@ email: gcompagnon@hotmail.com
 
 layout: post
 title: Asset and Assets
-description: > 
+description: > # this means to ignore newlines until "show_exerpts:"
   Personal Blog and bookmarks about 
   Software | Computing | Project | Software | Engineer | Architecture | Innovation | Systems Integration | 
   Continuous Integration | Continuous Deployment | Continuous Delivery | Agile | Devops |
@@ -17,20 +17,41 @@ description: >
   Risk Management | Delta | Alpha | Beta | Greeks| Tracking Error | VaR | Value at Risk | FRTB | expected shortfall | Stress Testing |
   Performance | Attribution | Allocation | Selection | Stock Picking | Total return | Scoring |
   CFA | AMF | ECB | Global Association of Risk Professionals | GARP | 
+show_excerpts: true # set to true to show excerpts on the homepage
+baseurl: /
 
-twitter_username: gcompagnon
-github_username: compagnon
-linkedin_username: compagnon
-
-google_analytics: UA-119758867-1
-
-show_downloads: true
-rss: rss
 
 theme: minima
 
-gems:
-- jekyll-mentions
 plugins:
 - jekyll-feed
 - jekyll-seo-tag
+- jekyll-mentions
+- jekyll-paginate
+- jekyll-gist
+
+# Minima date format
+# refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this
+minima:
+
+  date_format: "%Y-%m"
+
+# generate social links in footer
+  social_links:
+      twitter: gcompagnon
+      github: compagnon
+      linkedin: compagnon
+      rss: rss
+
+jekyll-mentions:
+  base_url: https://twitter.com
+
+google_analytics: UA-119758867-1
+
+repository: gcompagnon/gcompagnon.github.io
+
+show_downloads: true
+
+paginate: 4
+paginate_path: "/posts/page:num/"
+

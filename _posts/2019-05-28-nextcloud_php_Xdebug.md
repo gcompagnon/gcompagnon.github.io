@@ -5,6 +5,9 @@ categories: nextcloud php-fpm xdebug
 output:
   html_document:
     highlight: pygments
+published: true
+comments: false
+tags: [nextcloud, php-fpm, debug, dev env]    
 ---
 
 How to set up a dev environement with nextcloud debugging
