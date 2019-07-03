@@ -1,3 +1,7 @@
+## 1.3
+
+* add Bing Webmaster / Activate Google Analytics
+
 ## 1.2
 
 * jekyll-sitemap (generate the sitemap.xml)
