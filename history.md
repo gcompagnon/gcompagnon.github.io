@@ -1,3 +1,7 @@
+## 1.2
+
+* jekyll-sitemap (generate the sitemap.xml)
+
 ## 1.1
 
 * jekyll-paginate jekyll-gist (for inserting code snippets)

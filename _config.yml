@@ -5,7 +5,6 @@ email: gcompagnon@hotmail.com
 layout: post
 title: Asset and Assets
 description: > # this means to ignore newlines until "show_exerpts:"
-  Personal Blog and bookmarks about 
   Software | Computing | Project | Software | Engineer | Architecture | Innovation | Systems Integration | 
   Continuous Integration | Continuous Deployment | Continuous Delivery | Agile | Devops |
   C++ | C# | Java | Python | MultiThreading | Design Pattern | Commmando | Rapid Application Development |
@@ -18,7 +17,7 @@ description: > # this means to ignore newlines until "show_exerpts:"
   Performance | Attribution | Allocation | Selection | Stock Picking | Total return | Scoring |
   CFA | AMF | ECB | Global Association of Risk Professionals | GARP | 
 show_excerpts: true # set to true to show excerpts on the homepage
-baseurl: /
+#baseurl: /
 
 
 theme: minima
@@ -29,6 +28,7 @@ plugins:
 - jekyll-mentions
 - jekyll-paginate
 - jekyll-gist
+- jekyll-sitemap
 
 # Minima date format
 # refer to https://shopify.github.io/liquid/filters/date/ if you want to customize this

@@ -27,6 +27,7 @@ group :jekyll_plugins do
     gem "jekyll-mentions"
     gem "jekyll-gist"
     gem "github-pages"
+    gem 'jekyll-sitemap'    
   end
 
 gem "minima", "~> 2.5.0"
