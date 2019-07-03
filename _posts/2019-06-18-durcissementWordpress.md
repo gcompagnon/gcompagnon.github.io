@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "WordPress chez OVH"
+title: "WordPress chez OVH (french post)"
 categories: wordpress OVH
 output:
   html_document:
@@ -97,7 +97,7 @@ webmail.domaine.com.  0    CNAME      mail.office365.com.
 ###SPF (Sender Policy Framework)
 https://docs.microsoft.com/en-us/office365/SecurityCompliance/how-office-365-uses-spf-to-prevent-spoofing
 
-sur la zone DNS de sagis-am.com : s assurer de la présence du champ SPF :
+sur la zone DNS du domaine.com : s assurer de la présence du champ SPF :
 ````
 domaine.com.        600     SPF     "v=spf1 include:spf.protection.outlook.com -all"
 ````
@@ -119,8 +119,8 @@ https://docs.microsoft.com/en-us/office365/SecurityCompliance/support-for-valida
 https://fr.wikipedia.org/wiki/DomainKeys_Identified_Mail
 
 ````
-selector1._domainkey.sagis-am.com.        0      CNAME   selector1-sagisam-com01c._domainkey.sagisam.onmicrosoft.com. 
-selector2._domainkey.sagis-am.com.        0      CNAME   selector2-sagisam-com01c._domainkey.sagisam.onmicrosoft.com.
+selector1._domainkey.domaine.com.        0      CNAME   selector1-domainGUID-com01c._domainkey.domainGUID.onmicrosoft.com. 
+selector2._domainkey.domaine.com.        0      CNAME   selector2-domainGUID-com01c._domainkey.domainGUID.onmicrosoft.com.
 ````
 
 # 3. HEBERGEMENT SITE / WEB HOSTING

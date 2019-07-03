@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Robustification des conteneurs / proposition Talk meetup SecOps"
+title: "Durcissement des conteneurs / proposition Talk meetup SecOps(french post)"
 #title: "Stronger containers / DevSecOps"
 categories: container docker security
 output:
@@ -11,16 +11,16 @@ comments: false
 tags: [container, docker, security, secops]    
 ---
 
-Robustification des conteneurs | 
+Durcissement des conteneurs | 
 Les conteneurs sont dans l'oeil du cyclone médiatique: à la fois un rêve de dév agiliste et un cauchemar pour le devSecOps, avec son lot de vulnérabilités (CVE-2019-5736). Comme le conteneur (docker) est le système d'abstraction mis en avant par les plateformes cloud, dans leurs offres XaaS, cloud public et aussi IoT, ce talk a comme objectif de faire un tour rapide des principaux risques encourus, des bonnes pratiques et des nombreuses solutions en 2019 :
 en prévention : provisioning dans un registry, scan, contrôle d'intégrité d'image, la construction d'image dans le SDLC/pipeline,
  et en protection d'un run (managed kubernetes)
 
 ---
 
-[présentation faite à un meetup à Paris](/pdf/20190617_SecOps_meetup.pdf)
+<object data="/pdf/20190617_SecOps_meetup.pdf" width="850" height="650" type='application/pdf'/>
 
-
+-------------
 #Les 7 propriétés d'un système robuste
 
 #Les principaux risques

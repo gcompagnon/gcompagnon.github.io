@@ -23,5 +23,5 @@ bundle update
 
 To install Jekyll, ruby, and all gems:
 
-https://help.github.com/en/articles/setting-up-your-github-pages-site-locally-with-jekyll
+[https://help.github.com/en/articles/setting-up-your-github-pages-site-locally-with-jekyll](https://help.github.com/en/articles/setting-up-your-github-pages-site-locally-with-jekyll)
 

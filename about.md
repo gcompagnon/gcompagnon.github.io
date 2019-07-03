@@ -12,5 +12,5 @@ or
 [about](https://about.me/gcompagnon/)
 
 Public repos at GitHub:
-[GithubSandbox](https://github.com/gcompagnon/) / 
-[Github_released](https://github.com/compagnon/)
+[Github personal sandbox](https://github.com/gcompagnon/) / 
+[Github some releases](https://github.com/compagnon/)
