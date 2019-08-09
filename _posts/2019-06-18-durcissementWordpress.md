@@ -68,10 +68,10 @@ Notre serveur email est chez Office365 (exchange server)
 un outil Google permet de suivre sa réputation: (et éviter d etre sur des listes de spam)
 https://postmaster.google.com/managedomains?pli=1
 
-##Limiter la surface d attaque en supprimant les configurations d'emails inutiles
+## Limiter la surface d attaque en supprimant les configurations d'emails inutiles
 ENlever des configurations DNS , les entrées MX pour les domaines où on ne veut aucun email
 
-##email: comme expéditeur 
+## email: comme expéditeur 
 vérifier la config Office365 chez OVH
 https://docs.microsoft.com/fr-fr/previous-versions//jj655360%28v%3dtechnet.10%29
 
@@ -94,7 +94,7 @@ webmail.domaine.com.  0    CNAME      mail.office365.com.
 ````
 
 ### Mettre en place les parametres de sécurité proposés par Office 365 
-###SPF (Sender Policy Framework)
+### SPF (Sender Policy Framework)
 https://docs.microsoft.com/en-us/office365/SecurityCompliance/how-office-365-uses-spf-to-prevent-spoofing
 
 sur la zone DNS du domaine.com : s assurer de la présence du champ SPF :
@@ -104,7 +104,7 @@ domaine.com.        600     SPF     "v=spf1 include:spf.protection.outlook.com -
 
 pour la redirection OVH https://docs.ovh.com/fr/domains/le-champ-spf/ vers Office 365
 
-###DMARC
+### DMARC
 https://docs.microsoft.com/en-us/office365/SecurityCompliance/use-dmarc-to-validate-email
 (pour etre referencer sur agari.com )
 https://fr.wikipedia.org/wiki/DMARC
@@ -113,7 +113,7 @@ https://fr.wikipedia.org/wiki/DMARC
 _dmarc.domaine.com.  0     DMARC    v=DMARC1; p=quarantine;
 ````
 
-###DKIM Domain Keys Identified Mail
+### DKIM Domain Keys Identified Mail
 https://docs.microsoft.com/en-us/office365/SecurityCompliance/support-for-validation-of-dkim-signed-messages
 
 https://fr.wikipedia.org/wiki/DomainKeys_Identified_Mail
@@ -151,7 +151,7 @@ https://www.dareboost.com/fr/home
 
 # 4. Optimisation des performances de WordPress
 
-##optimiser wordpress
+## optimiser wordpress
 https://wordpress.org/support/article/optimization/
 
 ## tester les perf 
