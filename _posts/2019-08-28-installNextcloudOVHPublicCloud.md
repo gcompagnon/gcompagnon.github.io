@@ -1,0 +1,367 @@
+---
+layout: post
+title: "notes sur l installation de nextcloud sur l'infrastructure Public CLoud OVH"
+categories: notes nextcloud OVH
+output:
+  html_document:
+    highlight: pygments
+published: true
+comments: false
+tags: [nextcloud, iaas, ovh]
+---
+
+L'infrastructure Nextcloud est composée de :
+  - un serveur Web (Nginx Debian9)
+  - le serveur PHP (PHP7.3-FPM Debian9)
+  - une instance de base de données (postgres 9.6 Debian9)
+  - un volume de données fichiers (openstack swift)
+
+Le déploiement de cette infrastructure peut se faire sur l'offre Public Cloud OVH:
+  - un réseau privé pour isoler l'ensemble de cet infra
+  - 1 instance pour le serveur Web et PHP
+  - 1 instance distincte pour la base de données
+  - 1 Object storage (dupliqués sur 3 réplicas et facturation à l'usage)
+Le choix de séparer les instances de type Front (Web) et Back (Base de données) est dictée par un choix d'architecture pour faciliter la montée en charge (installation d'un load balancer en facade des instances Web, en conservant une instance dédiée pour le Back) , l'isolation des composants permettant l'archivage cohérent ( snapshot et cloud archive) un PCA (passage d'une région à une autre), et la sécurité avec si nécessaire un reverse proxy.
+
+
+#Installation des prerequis
+
+## 0-Créer sa clé SSH 
+
+https://docs.ovh.com/fr/public-cloud/creation-des-cles-ssh/
+
+Générer une paire de clés SSH (rsa longueur 4096)  (par exemple sur linux/debian)
+```
+ssh-keygen -t rsa -b 4096
+```
+(importer sur son système / par ex sur linux dans ~/.ssh)
+importer la clé publique SSH dans la console OVH :
+https://horizon.cloud.ovh.net/project/key_pairs
+
+## 1- Réseaux privés / Private network
+
+Créer un réseau privé avec une interface par défaut , et un VLAN id
+Les IP du réseau sont gérés par DHCP par simplicité (pas besoin de fixer les IPs)
+
+## 2- instance Postgresql 
+Il existe un choix entre héberger la base de données sur une instance Compute ou alors utiliser une CloudDB (service DBaas d'OVH)
+=> pour des raisons de flexibilité de coût et d'usage (CloudDB est au minimum une instance à 512Mo), le démarrage du projet se fera sur une instance Compute
+
+Documentation sur les instances Cloud Public: [Premiers pas avec une instance Public Cloud](https://docs.ovh.com/fr/public-cloud/debuter-avec-une-instance-public-cloud/)
+
+
+-renseigner l'adresse IP privée de postgres sans le DNS \<nom domaine>.com 
+cela eviter de coder l adresse IP dans les fichiers de config
+https://docs.ovh.com/fr/domains/editer-ma-zone-dns/
+```
+Modifier l'entrée A de postgres.\<domain>.com
+```
+
+-Se connecter en SSH sur l instance :
+
+```
+ssh debian@*ip publique*
+```
+https://docs.ovh.com/gb/en/public-cloud/first-login/#instructions
+
+pour activer VNC, changer le mot de passe root
+https://docs.ovh.com/fr/public-cloud/passer-root-et-definir-un-mot-de-passe/
+```
+ sudo passwd 
+```
+
+- installer Postgresql
+```
+sudo apt-get install postgresql
+```
+
+- creer l utilisateur et l'instance de base de données: nextcloud
+```
+sudo -u postgres psql -c "SELECT version();"
+sudo -u postgres  createuser -P nextcloud
+
+sudo -u postgres psql -d template1
+psql (9.6.13)
+Type "help" for help.
+
+template1=# ALTER USER nextcloud CREATEDB;
+template1=# CREATE DATABASE nextcloud16 OWNER nextcloud;
+
+WARNING:  could not flush dirty data: Function not implemented
+CREATE DATABASE
+template1=# \q
+```
+
+- activer l ecoute sur l interface privé du serveur
+
+```
+sudo -u postgres vi /etc/postgresql/9.6/main/postgresql.conf
+```
+et modifier la ligne #listen_addresses = 'localhost' en
+listen_addresses = 'postgres.\<domain>.com'
+
+- permetre les connexions provenant de la plage des adresses privées
+```
+sudo vi /etc/postgresql/9.6/main/pg_hba.conf
+```
+ajouter la ligne :
+```
+host    all             all             10.72.1.0/24            md5 
+```
+
+- redemarrer postgres
+```
+sudo service postgres restart
+```
+
+- faire en sorte que postgres redémarre à chaque reboot d instance
+```
+sudo update-rc.d postgresql enable
+```
+
+
+
+
+## 3- Object Storage
+
+https://docs.ovh.com/gb/en/public-cloud/place-an-object-storage-container-behind-domain-name/
+
+creer un Object storage XXXXX en mode private / non-public
+
+conserver le mot de passe et le fichier openRC
+
+## 4 - instance serveur Front / nextcloud
+
+- créer et démarrer une instance Compute / Debian9
+
+-renseigner l'adresse IP PUBLIC de cette instance sans le DNS \<domaine>.com
+https://docs.ovh.com/fr/domains/editer-ma-zone-dns/
+```
+Modifier l'entrée A de coffre.<domaine>.com avec l adresse IP v4 Public
+Modifier l'entrée AAAA de coffre.<domaine>.com avec l adresse IP v6 Public
+```
+
+-Se connecter en SSH sur l instance :
+
+```
+ssh debian@*ip publique*
+```
+
+- changer le mot de passe root
+```
+ sudo passwd 
+```
+
+- ajouter un user nextcloud
+```
+sudo adduser  nextcloud
+
+usermod -aG sudo nextcloud
+
+su - nextcloud
+```
+- install un point de montage sur l'object storage
+https://github.com/ovh/svfs/blob/master/docs/PCS.md
+
+
+- installer le package OVH pour supporter Swift
+
+```
+sudo apt-get install ruby fuse
+
+ wget https://github.com/ovh/svfs/releases/download/v0.9.1/svfs_0.9.1_amd64.deb .
+
+ sudo dpkg -i svfs_0.9.1_amd64.deb
+```
+
+- utiliser les variables décrites dans le fichier OpenRC openrc.sh
+https://docs.ovh.com/fr/public-cloud/acces-et-securite-dans-horizon/
+
+et choisir un \<nom> 
+```
+sudo mkdir /mnt/<nom>
+sudo chown nextcloud:nextcloud /mnt/<nom>
+
+sudo mount -t svfs -o username=$OS_USERNAME,password=$OS_PASSWORD,tenant=$OS_TENANT_NAME,region=$OS_REGION_NAME,uid=nextcloud,gid=nextcloud <nom> /mnt/<nom>
+```
+
+## NGINX
+
+sur l'instance Serveur Front / Nextcloud
+```
+sudo apt-get install nginx
+```
+
+- utiliser le user nextcloud pour démarrer nginx
+```
+sudo vi /etc/nginx/nginx.conf
+```
+changer *user www-data;* en 
+```
+user nextcloud;
+```
+
+- installer la configuration Nextcloud pour nginx
+
+```
+cp nextcloud.conf /etc/nginx/sites-enabled/
+```
+
+## NGINX avec HTTPS
+
+Lets encrypt fournit un certificat SSL au serveur NGINX
+
+- ajouter un referentiel pour obtenir le certbot qui renouvelera le certificat SSL 
+
+```
+sudo apt edit-sources
+```
+et ajouter les 2 lignes (ou décommentez du fichier sources.list):
+deb http://deb.debian.org/debian stretch-backports main contrib non-free
+deb-src http://deb.debian.org/debian stretch-backports main contrib non-free
+```
+sudo apt update
+sudo apt install python-certbot-nginx -t stretch-backports
+```
+
+- obtenir un certificat SSL pour notre instance
+```
+sudo certbot --nginx -d coffre.xxxxx.com -d www.coffre.xxxxx.com
+```
+## php7.3-fpm
+sur l'instance Serveur Front / Nextcloud
+
+- ajouter la source officielle pour les packages PHP
+```
+sudo apt -y install lsb-release apt-transport-https ca-certificates 
+
+sudo wget -O /etc/apt/trusted.gpg.d/php.gpg https://packages.sury.org/php/apt.gpg
+echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /etc/apt/sources.list.d/php7.3.list
+```
+
+- installer PHP 7.3
+```
+ sudo apt update
+ sudo apt upgrade -y
+ sudo apt -y install php7.3
+```
+
+- installer les modules complementaires PHP 7.3
+```
+sudo apt install php7.3-cli php7.3-fpm php7.3-json php7.3-pdo php7.3-zip php7.3-gd  php7.3-mbstring php7.3-curl php7.3-xml php7.3-json
+
+
+ sudo apt install php7.3-pgsql php7.3-apc php7.3-apcu php7.3-imagick php7.3-imap php7.3-intl imagemagick
+
+```
+- installer le module Imagemagick pour gérer les logos custom
+
+```
+sudo apt-get install build-essential checkinstall && apt-get build-dep imagemagick -y
+sudo apt-get -y install gcc make autoconf libc-dev pkg-config
+sudo apt-get -y install libmagickwand-dev
+sudo apt update
+```
+
+- utiliser le user nextcloud pour démarrer php
+```
+sudo vi /etc/php/7.3/fpm/pool.d/www.conf  
+```
+changer *www-data* en 
+```
+listen.owner = nextcloud
+listen.group = nextcloud 
+```
+
+changer 
+```
+;clear_env = no
+en 
+clear_env = no
+```
+
+- augmenter la mémoire allouée pour PHP
+```
+sudo vi /etc/php/7.3/fpm/php.ini  
+```
+changer memory_limit = 128M en 
+```
+memory_limit = 512M
+
+```
+
+
+# (option)pour un montage de l object storage dans nextcloud en files external 
+
+```
+apt-get install smbclient
+```
+
+# Nextcloud
+en version 16.0.4 / stable
+
+[documentation officielle Nextcloud16](https://docs.nextcloud.com/server/16/admin_manual/installation/index.html)
+
+## installation de nextcloud
+La version adaptée de nextcloud (avec /newpassword ,  Aide A la découverte / firstrunwizard et Customized Emails est disponible sur l'object storage
+
+```
+tar xvf nextcloud-server-<nom>.tar.gz
+ou (partir d'une version officielle de nextcloud.org)
+tar xvf nextcloud-n.x.y.tar.bz2
+
+```
+
+
+## installation pour initialisaer la base de données
+
+## config.php 
+
+## Applications
+
+APrès une connexion avec le compte admin de nextcloud 
+Aller dans Applications (icone haut et droit)
+pour activer:
+
+Aide A la Decouverte (FirstRunWizard adaptée)
+Theming
+Custom CSS 
+Customized Emails 
+Default encryption module 
+
+## Theming & Custom CSS 
+Aller dans Paramètres (icone haut et droit) et dans "Personnaliser l'apparence"
+
+Choisir les logos présents dans /nextcloud-server/themes/xxx.core/img
+et le contenui du fichier /nextcloud-server/themes/xxx.core/css/custom.css dans Custom CSS et cliquer sur Save
+## (inutile)External storage support 
+Le primary storage est configuré direment dans Nextcloud config.php
+https://docs.nextcloud.com/server/15/admin_manual/configuration_files/primary_storage.html
+
+configurer un External storage est donc inutile
+
+- installer la librairie pour accèder à Openstack Swfit
+```
+sudo apt-get install smbclient
+```
+- utiliser les variables décrites dans le fichier OpenRC openrc.sh
+
+- Aller dans Paramètres (icone haut et droit) et dans "Stockages externes"
+
+creer un dossier 
+Nom du dossier : OVHPublicCloud
+Stockage externe: Openstack Object STorage
+
+Nom du service : swift
+Région: \$OS_REGION_NAME
+Bucket: \<nom>_01 (le nom d un des conteneurs objectstorage OVH)
+Nom d utilisateur: \$OS_USERNAME
+Mot de passe: \$OS_PASSWORD
+Tenant name: \$OS_TENANT_NAME
+Identity endpoint URL: https://auth.cloud.ovh.net/v2.0/
+
+## Securité:
+Aller dans Paramètres (icone haut et droit) et dans "Sécurité"
+Activer le chiffrement coté serveur
+et
+Chiffrer l'espace de stockage principal

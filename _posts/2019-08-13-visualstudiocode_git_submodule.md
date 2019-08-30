@@ -27,6 +27,11 @@ For example:
 	url = https://github.com/nextcloud/3rdparty.git
 
 	[submodule "nextcloud-custom_apps"]
-	path = nextcloud-custom_apps
+	path = custom_apps
 	url = https://github.com/compagnon/nextcloud-custom_apps.git
 ```
+
+get the code:
+```
+ git submodule update --init
+ ```
