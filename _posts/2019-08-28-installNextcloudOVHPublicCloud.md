@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "notes sur l installation de nextcloud sur l'infrastructure Public CLoud OVH"
+title: "Installation de NextCloud sur le Public Cloud d'OVH(french post)"
 categories: notes nextcloud OVH
 output:
   html_document:
@@ -9,12 +9,14 @@ published: true
 comments: false
 tags: [nextcloud, iaas, ovh]
 ---
+Les étapes pour déployer la solution de cloud fichier / coffre fort électronique en utilisant le serveur Nextcloud.
 
-L'infrastructure Nextcloud est composée de :
+L'infrastructure Nextcloud ( version '16.0.4.1' adaptée avec la fonctionnalité /newpassword) est composée de :
   - un serveur Web (Nginx Debian9)
   - le serveur PHP (PHP7.3-FPM Debian9)
   - une instance de base de données (postgres 9.6 Debian9)
   - un volume de données fichiers (openstack swift)
+
 
 Le déploiement de cette infrastructure peut se faire sur l'offre Public Cloud OVH:
   - un réseau privé pour isoler l'ensemble de cet infra
@@ -24,9 +26,12 @@ Le déploiement de cette infrastructure peut se faire sur l'offre Public Cloud O
 Le choix de séparer les instances de type Front (Web) et Back (Base de données) est dictée par un choix d'architecture pour faciliter la montée en charge (installation d'un load balancer en facade des instances Web, en conservant une instance dédiée pour le Back) , l'isolation des composants permettant l'archivage cohérent ( snapshot et cloud archive) un PCA (passage d'une région à une autre), et la sécurité avec si nécessaire un reverse proxy.
 
 
-#Installation des prerequis
+![alt text](/images/20190828-logo-coffre-fort.svg "CFE / ")
 
-## 0-Créer sa clé SSH 
+
+#A. Installation des prerequis
+
+## 0- Créer sa clé SSH 
 
 https://docs.ovh.com/fr/public-cloud/creation-des-cles-ssh/
 
@@ -119,18 +124,15 @@ sudo service postgres restart
 sudo update-rc.d postgresql enable
 ```
 
-
-
-
 ## 3- Object Storage
 
 https://docs.ovh.com/gb/en/public-cloud/place-an-object-storage-container-behind-domain-name/
 
-creer un Object storage XXXXX en mode private / non-public
+créer un Object storage XXXXX en mode private / non-public
 
 conserver le mot de passe et le fichier openRC
 
-## 4 - instance serveur Front / nextcloud
+## 4 - Instance serveur Front pour servir NextCloud
 
 - créer et démarrer une instance Compute / Debian9
 
@@ -185,7 +187,7 @@ sudo chown nextcloud:nextcloud /mnt/<nom>
 sudo mount -t svfs -o username=$OS_USERNAME,password=$OS_PASSWORD,tenant=$OS_TENANT_NAME,region=$OS_REGION_NAME,uid=nextcloud,gid=nextcloud <nom> /mnt/<nom>
 ```
 
-## NGINX
+## 5- NGINX
 
 sur l'instance Serveur Front / Nextcloud
 ```
@@ -207,7 +209,7 @@ user nextcloud;
 cp nextcloud.conf /etc/nginx/sites-enabled/
 ```
 
-## NGINX avec HTTPS
+## 6- NGINX avec HTTPS
 
 Lets encrypt fournit un certificat SSL au serveur NGINX
 
@@ -228,7 +230,7 @@ sudo apt install python-certbot-nginx -t stretch-backports
 ```
 sudo certbot --nginx -d coffre.xxxxx.com -d www.coffre.xxxxx.com
 ```
-## php7.3-fpm
+## 7 -php7.3-fpm
 sur l'instance Serveur Front / Nextcloud
 
 - ajouter la source officielle pour les packages PHP
@@ -291,56 +293,57 @@ memory_limit = 512M
 ```
 
 
-# (option)pour un montage de l object storage dans nextcloud en files external 
+- augmenter le nombre de process allouées au traitement PHP
+```
+sudo vi /etc/php/7.3/fpm/pool.d/www.conf
+```
 
 ```
-apt-get install smbclient
+pm.max_children = 20
+pm.start_servers = 5
+pm.min_spare_servers = 1
+pm.max_spare_servers = 15
 ```
 
-# Nextcloud
+
+- faire en sorte que php7.3-fpm et nginx redémarre à chaque reboot d instance
+```
+sudo update-rc.d php7.3-fpm enable
+sudo update-rc.d nginx enable
+```
+
+
+
+# B. Installation de Nextcloud
 en version 16.0.4 / stable
 
 [documentation officielle Nextcloud16](https://docs.nextcloud.com/server/16/admin_manual/installation/index.html)
 
-## installation de nextcloud
-La version adaptée de nextcloud (avec /newpassword ,  Aide A la découverte / firstrunwizard et Customized Emails est disponible sur l'object storage
 
-```
-tar xvf nextcloud-server-<nom>.tar.gz
-ou (partir d'une version officielle de nextcloud.org)
-tar xvf nextcloud-n.x.y.tar.bz2
+## 0- Choix de la zone de stockage
 
-```
+Il existe de multiples possibilités pour représenter la zone de stockage des fichiers accessibles par NextCloud.
 
+-espace disque en local du serveur nextcloud
+-point de montage réseau sur un SAN/NAS
+-technologie de Cloud Storage (Amazon S3, Openstack Swift)
 
-## installation pour initialisaer la base de données
+OVH Public Cloud propose les conteneurs d'objet basé sur le standard Openstack Swift à tarif compétitif. ce qui assure une sureté de fonctionnement (3 replicas de la donnée), et la facilité pour la sauvegarde, l'archivage.
 
-## config.php 
+### Nextcloud et Openstack Swift
 
-## Applications
+Il existe 3 façons d'utiliser un conteneur d'objects Swift:
 
-APrès une connexion avec le compte admin de nextcloud 
-Aller dans Applications (icone haut et droit)
-pour activer:
-
-Aide A la Decouverte (FirstRunWizard adaptée)
-Theming
-Custom CSS 
-Customized Emails 
-Default encryption module 
-
-## Theming & Custom CSS 
-Aller dans Paramètres (icone haut et droit) et dans "Personnaliser l'apparence"
-
-Choisir les logos présents dans /nextcloud-server/themes/xxx.core/img
-et le contenui du fichier /nextcloud-server/themes/xxx.core/css/custom.css dans Custom CSS et cliquer sur Save
-## (inutile)External storage support 
-Le primary storage est configuré direment dans Nextcloud config.php
+#### 1. en Primary Storage :
+Le primary storage est configuré directement dans Nextcloud config.php
 https://docs.nextcloud.com/server/15/admin_manual/configuration_files/primary_storage.html
+De façon à rendre l'accès exclusif à l'instance Nextcloud.
+C'est pourquoi, il faut s'assurer de sauvegarder la base de données Nextcloud , contenant les meta données, 
+ainsi que la clé de chiffrement serveur permettant de déchiffrer à la volée les éléments/objets stockés dans le conteneur Swift
 
-configurer un External storage est donc inutile
+#### 2. en dossier dans nextcloud par l 'application "external storage support"
 
-- installer la librairie pour accèder à Openstack Swfit
+- installer la librairie pour accèder à Openstack Swift
 ```
 sudo apt-get install smbclient
 ```
@@ -360,8 +363,70 @@ Mot de passe: \$OS_PASSWORD
 Tenant name: \$OS_TENANT_NAME
 Identity endpoint URL: https://auth.cloud.ovh.net/v2.0/
 
-## Securité:
+#### 3. en point de montage réseau avec OVH/svfs
+https://github.com/ovh/svfs
+
+
+## 1- installation de nextcloud
+La version adaptée de nextcloud (avec /newpassword ,  Aide A la découverte / firstrunwizard et Customized Emails est disponible sur l'object storage
+
+```
+tar xvf nextcloud-server-<nom>.tar.gz
+ou (partir d'une version officielle de nextcloud.org)
+tar xvf nextcloud-n.x.y.tar.bz2
+
+```
+
+## 2- (si nécessaire) installation pour ré-initialiser Nextcloud 
+
+Afin de démarrer un serveur avec le seul compte admin, sans tenir compte de la base de données existante.
+
+ - créer un base de données vide , avec psql : 
+
+```
+sudo -u postgres psql -d template1
+psql (9.6.13)
+Type "help" for help.
+
+template1=# CREATE DATABASE nextcloud16 OWNER nextcloud;
+```
+
+- retirer ou renommer le fichier config/config.php
+- créer un fichier vide config/CAN_INSTALL
+
+Solliciter Nextcloud sur http://serveur_IP:Port/ afin de d'obtenir la page d'installation
+
+
+## 3- (pour info) Fichier de configuration
+
+Le fichier de configuration principal est config/config.php 
+
+## 4- Applications
+
+APrès une connexion avec le compte admin de nextcloud 
+Aller dans Applications (icone haut et droit)
+pour activer:
+
+Aide A la Decouverte (FirstRunWizard adaptée)
+Theming
+Custom CSS 
+Customized Emails 
+Default encryption module 
+
+### Theming & Custom CSS 
+Aller dans Paramètres (icone haut et droit) et dans "Personnaliser l'apparence"
+
+Choisir les logos présents dans /nextcloud-server/themes/xxx.core/img
+et le contenui du fichier /nextcloud-server/themes/xxx.core/css/custom.css dans Custom CSS et cliquer sur Save
+
+### Securité:
 Aller dans Paramètres (icone haut et droit) et dans "Sécurité"
 Activer le chiffrement coté serveur
 et
 Chiffrer l'espace de stockage principal
+
+### Bruteforce / protection contre l'attaque par force brute
+
+Aller dans Paramètres (icone haut et droit) et dans "Sécurité"
+Ajouter l'adresse IP Publique de Sagis dans Liste blanche des IP pour attaque par force brute:
+ 193.248.39.218  
