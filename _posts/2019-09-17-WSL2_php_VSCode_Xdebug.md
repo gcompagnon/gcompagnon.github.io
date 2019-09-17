@@ -79,7 +79,12 @@ Xdebug could log this:
 It is possible due to Firewall blocking VS Code , Xdebug server.
 So authorize program:  code.exe to listen into Private 
 
+For other IDE , it could be time-saving to know what is the program:
 
+Powershell command gives the Program listening on port 9009
+```
+Get-Process -Id (Get-NetTCPConnection -LocalPort 9009).OwningProcess
+```
 
 # Dev workstation side (VS Code on windows10)
 
