@@ -8,7 +8,13 @@ output:
 published: true
 comments: false
 tags: [nextcloud, iaas, ovh]
+excerpt: Notes sur l'administration nextcloud / Provisionning des utilisateurs
 ---
+<div class="social-media-list">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script type="IN/Share" data-url="{{ site.url }}{{ page.url }}"></script>
+<div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
+</div>
 
 Ce document décrit quelques actions systématiques d'administration afin de faire évoluer l'usage du coffre-fort en ligne / cloud fichiers /extranet clients
 
@@ -19,6 +25,7 @@ Le serveur Nextcloud propose d'utiliser une interface graphique pour l'administr
 - https://coffre.\<nom>.com/settings/users
 ou
 - un utilitaire en ligne de commande : [occ](https://docs.nextcloud.com/server/9/admin_manual/configuration_server/occ_command.html)
+
 ```
 su - nextcloud 
  ./occ
@@ -36,7 +43,6 @@ Options:
   -n, --no-interaction  Do not ask any interactive question
       --no-warnings     Skip global warnings, show command output only
   -v|vv|vvv, --verbose  Increase the verbosity of messages: 1 for normal output, 2 for more verbose output and 3 for debug
-
  ```
 
 # A. Description du fonctionnement
@@ -75,22 +81,26 @@ L'avantage d'utiliser la ligne de commande est qu'aucun email de bienvenue n'est
 Sur le serveur Front :
 
 - générer un mot de passe temporaire chiffré
-```
 
 ```
+export OC_PASS="$(gpg --armor --gen-random 1 16)"
+```
 
-- créer le compte 
+- créer le compte
+
 ```
  ./occ user:add client1 --display-name "Prenom1 CLIENT1" --group "CLIENTS<nom>" --password-from-env
  The user "client1" was created successfully
  Display name set to "Mr CLIENT1"
 ```
 
-- effacer la trace du mot de passe temporaire 
+- effacer la trace du mot de passe temporaire
+
 ```
 unset OC_PASS
 ```
 - mettre à jour les paramètres de l'utilisateur client
+
 ```
 ./occ user:setting client1 settings email "client1@mail.com"
 ./occ user:setting client1 core lang fr
@@ -102,11 +112,13 @@ unset OC_PASS
 
 Si 2 clients doivent se recevoir , consulter, et pouvoir se partager plusieurs documents, au sein d'une famille, ou d'une société ou d'une indivision.
 - créer un groupe nommé
+
 ```
 ./occ group:add famille1
 ```
 
 - ajouter les membres à ce groupe
+
 ```
  ./occ group:adduser famille1 client1
 ```
@@ -135,6 +147,7 @@ sélectionner les options suivantes:
 
 Sur le serveur de  base de données 
 - se connecter sur la base de données Nextcloud et lister les partages en cours
+
 ```
 sudo -u postgres psql -d template1
 \l
@@ -155,6 +168,7 @@ share_type = 0  pour un partage avec un utilisateur
 share_type = 1 pour  un partage avec un groupe 
 
 - si un utilisateur de groupe supprime son partage , on peut le restaurer avec la commande:
+
 ```
 DELETE FROM public.oc_share
 	WHERE share_type =2 and share_with = '<utilisateur>' ;	

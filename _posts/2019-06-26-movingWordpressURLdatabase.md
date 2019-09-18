@@ -8,7 +8,13 @@ output:
 published: true
 comments: false
 tags: [wordpress, webhosting, ovh, migration]
+excerpt: Cookbook for migrating Wordpress from one URL to another
 ---
+<div class="social-media-list">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script type="IN/Share" data-url="{{ site.url }}{{ page.url }}"></script>
+<div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
+</div>
 
 # Wordpress // notes for migrating a WordPress site from URL A to URL B
 (duplicate a webhosting OVH for getting UAT and A/B testing)

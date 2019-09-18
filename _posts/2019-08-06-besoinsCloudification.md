@@ -8,12 +8,20 @@ output:
 published: true
 comments: false
 tags: [cloud,migrate, project]
+excerpt: Points / notes d expérience sur un passage sur Cloud
 ---
+<div class="social-media-list">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script type="IN/Share" data-url="{{ site.url }}{{ page.url }}"></script>
+<div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
+</div>
 
-* *bullet points* sur la cloudification: migration de datacenter (VM/hyperviseurs) sur des techno cloud (managed *services*/ VMs / containers+k8s) 
+- *bullet points* sur la cloudification: migration de datacenter (VM/hyperviseurs) sur des techno cloud (managed *services*/ VMs / containers+k8s) 
 et 
-* Opinions, mes notes loin d être *paroles d'évangile* mais qui permette de conserver une trace de mon ressenti à cet instant (*milieu du gué*) sur le plus grand bouleversement que l'IT (ops et dévs) traverse depuis la révolution dotcom/ecommerce.
--- 
+- Opinions, mes notes loin d être *paroles d'évangile* mais qui permette de conserver une trace de mon ressenti à cet instant (*milieu du gué*) sur le plus grand bouleversement que l'IT (ops et dévs) traverse depuis la révolution dotcom/ecommerce.
+
+----
+
 # Préalables - points à retenir 
 
 ## La Silver Bullet / promesse marketing du cloud

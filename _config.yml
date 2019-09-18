@@ -51,6 +51,6 @@ repository: gcompagnon/gcompagnon.github.io
 
 show_downloads: true
 
-paginate: 4
+paginate: 10
 paginate_path: "/posts/page:num/"
 

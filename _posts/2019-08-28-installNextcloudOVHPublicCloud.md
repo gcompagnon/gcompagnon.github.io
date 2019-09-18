@@ -8,7 +8,14 @@ output:
 published: true
 comments: false
 tags: [nextcloud, iaas, ovh]
+excerpt: mode d emploi pour démarrer Nextcloud sur OVH
 ---
+<div class="social-media-list">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script type="IN/Share" data-url="{{ site.url }}{{ page.url }}"></script>
+<div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
+</div>
+
 Les étapes pour déployer la solution de cloud fichier / coffre fort électronique en utilisant le serveur Nextcloud.
 
 L'infrastructure Nextcloud ( version '16.0.4.1' adaptée avec la fonctionnalité /newpassword) est composée de :
@@ -29,7 +36,7 @@ Le choix de séparer les instances de type Front (Web) et Back (Base de données
 ![alt text](/images/20190828-logo-coffre-fort.svg "CFE / ")
 
 
-#A. Installation des prerequis
+# A. Installation des prerequis
 
 ## 0- Créer sa clé SSH 
 
@@ -76,11 +83,13 @@ https://docs.ovh.com/fr/public-cloud/passer-root-et-definir-un-mot-de-passe/
 ```
 
 - installer Postgresql
+
 ```
 sudo apt-get install postgresql
 ```
 
 - creer l utilisateur et l'instance de base de données: nextcloud
+
 ```
 sudo -u postgres psql -c "SELECT version();"
 sudo -u postgres  createuser -P nextcloud
@@ -102,10 +111,12 @@ template1=# \q
 ```
 sudo -u postgres vi /etc/postgresql/9.6/main/postgresql.conf
 ```
+
 et modifier la ligne #listen_addresses = 'localhost' en
 listen_addresses = 'postgres.\<domain>.com'
 
 - permetre les connexions provenant de la plage des adresses privées
+
 ```
 sudo vi /etc/postgresql/9.6/main/pg_hba.conf
 ```
@@ -115,11 +126,13 @@ host    all             all             10.72.1.0/24            md5
 ```
 
 - redemarrer postgres
+
 ```
 sudo service postgres restart
 ```
 
 - faire en sorte que postgres redémarre à chaque reboot d instance
+
 ```
 sudo update-rc.d postgresql enable
 ```
@@ -150,11 +163,13 @@ ssh debian@*ip publique*
 ```
 
 - changer le mot de passe root
+
 ```
  sudo passwd 
 ```
 
 - ajouter un user nextcloud
+
 ```
 sudo adduser  nextcloud
 
@@ -195,6 +210,7 @@ sudo apt-get install nginx
 ```
 
 - utiliser le user nextcloud pour démarrer nginx
+
 ```
 sudo vi /etc/nginx/nginx.conf
 ```
@@ -227,6 +243,7 @@ sudo apt install python-certbot-nginx -t stretch-backports
 ```
 
 - obtenir un certificat SSL pour notre instance
+
 ```
 sudo certbot --nginx -d coffre.xxxxx.com -d www.coffre.xxxxx.com
 ```
@@ -234,6 +251,7 @@ sudo certbot --nginx -d coffre.xxxxx.com -d www.coffre.xxxxx.com
 sur l'instance Serveur Front / Nextcloud
 
 - ajouter la source officielle pour les packages PHP
+
 ```
 sudo apt -y install lsb-release apt-transport-https ca-certificates 
 
@@ -242,6 +260,7 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /et
 ```
 
 - installer PHP 7.3
+
 ```
  sudo apt update
  sudo apt upgrade -y
@@ -249,12 +268,11 @@ echo "deb https://packages.sury.org/php/ $(lsb_release -sc) main" | sudo tee /et
 ```
 
 - installer les modules complementaires PHP 7.3
+
 ```
 sudo apt install php7.3-cli php7.3-fpm php7.3-json php7.3-pdo php7.3-zip php7.3-gd  php7.3-mbstring php7.3-curl php7.3-xml php7.3-json
 
-
  sudo apt install php7.3-pgsql php7.3-apc php7.3-apcu php7.3-imagick php7.3-imap php7.3-intl imagemagick
-
 ```
 - installer le module Imagemagick pour gérer les logos custom
 
@@ -266,6 +284,7 @@ sudo apt update
 ```
 
 - utiliser le user nextcloud pour démarrer php
+
 ```
 sudo vi /etc/php/7.3/fpm/pool.d/www.conf  
 ```
@@ -283,17 +302,18 @@ clear_env = no
 ```
 
 - augmenter la mémoire allouée pour PHP
+
 ```
 sudo vi /etc/php/7.3/fpm/php.ini  
 ```
 changer memory_limit = 128M en 
 ```
 memory_limit = 512M
-
 ```
 
 
 - augmenter le nombre de process allouées au traitement PHP
+
 ```
 sudo vi /etc/php/7.3/fpm/pool.d/www.conf
 ```
@@ -307,6 +327,7 @@ pm.max_spare_servers = 15
 
 
 - faire en sorte que php7.3-fpm et nginx redémarre à chaque reboot d instance
+
 ```
 sudo update-rc.d php7.3-fpm enable
 sudo update-rc.d nginx enable
@@ -344,9 +365,11 @@ ainsi que la clé de chiffrement serveur permettant de déchiffrer à la volée 
 #### 2. en dossier dans nextcloud par l 'application "external storage support"
 
 - installer la librairie pour accèder à Openstack Swift
+
 ```
 sudo apt-get install smbclient
 ```
+
 - utiliser les variables décrites dans le fichier OpenRC openrc.sh
 
 - Aller dans Paramètres (icone haut et droit) et dans "Stockages externes"
@@ -374,7 +397,6 @@ La version adaptée de nextcloud (avec /newpassword ,  Aide A la découverte / f
 tar xvf nextcloud-server-<nom>.tar.gz
 ou (partir d'une version officielle de nextcloud.org)
 tar xvf nextcloud-n.x.y.tar.bz2
-
 ```
 
 ## 2- (si nécessaire) installation pour ré-initialiser Nextcloud 

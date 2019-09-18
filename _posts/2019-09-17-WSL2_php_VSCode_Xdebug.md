@@ -8,6 +8,7 @@ output:
 published: true
 comments: false
 tags: [nextcloud, php-fpm, debug, dev env, vscode, wsl2, xdebug]
+excerpt: How to setup PHP server (nextcloud) or python server or node js on WSL2
 ---
 <div class="social-media-list">
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
@@ -20,7 +21,7 @@ on [WSL2](https://docs.microsoft.com/en-us/windows/wsl/wsl2-ux-changes#accessing
  with remote debugging on VS Code using Extensions.
 
 
- 
+
  For ex: [PHP Debug 1.13.0 extension](https://github.com/felixfbecker/vscode-php-debug)  is the [XDebug](https://xdebug.org/) adapter inside VSCode
 
 

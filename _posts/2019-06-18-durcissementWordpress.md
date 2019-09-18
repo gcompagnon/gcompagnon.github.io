@@ -11,7 +11,13 @@ output:
 published: true
 comments: false
 tags: [wordpress, webhosting, ovh, hebergement]    
+excerpt: Notes sur le déploiement Wordpress chez OVH
 ---
+<div class="social-media-list">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script type="IN/Share" data-url="{{ site.url }}{{ page.url }}"></script>
+<div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
+</div>
 
 #Configurations sur www / wordpress / php / mysql
 
@@ -73,6 +79,7 @@ ENlever des configurations DNS , les entrées MX pour les domaines où on ne veu
 
 ## email: comme expéditeur 
 vérifier la config Office365 chez OVH
+
 https://docs.microsoft.com/fr-fr/previous-versions//jj655360%28v%3dtechnet.10%29
 
 ## redirection sur le serveur email/exchange

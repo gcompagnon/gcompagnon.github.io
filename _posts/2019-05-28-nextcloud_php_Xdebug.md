@@ -8,7 +8,13 @@ output:
 published: true
 comments: false
 tags: [nextcloud, php-fpm, debug, dev env]    
+excerpt: How to set up a dev environement with nextcloud debugging
 ---
+<div class="social-media-list">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script type="IN/Share" data-url="{{ site.url }}{{ page.url }}"></script>
+<div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
+</div>
 
 How to set up a dev environement with nextcloud debugging
 based on https://xdebug.org/docs/install
@@ -21,11 +27,11 @@ Get Visual Studio Code (1.34.0) and its extension "PHP Debug" (1.13.0)
 Server side (WSL Debian 9)
 
 php-fpm 7.0 installed with 
-```{r, engine='bash', eval = FALSE}
+```
 gui@SAGIS-09:$ sudo apt-get install php7.0-fpm
 ```
 activate notice logs :
-```{r, engine='bash', eval = FALSE}
+```
 gui@SAGIS-09:$ sudo vi /etc/php/7.0/fpm/php-fpm.conf
 ```
 
@@ -34,14 +40,14 @@ log_level = notice
 
 
 and dev tools 
-```{r, engine='bash', eval = FALSE}
+```
 gui@SAGIS-09:$ sudo apt-get install php7.0-dev
 ```
 
 
 
 clone the Xdebug source , and build it
-```{r, engine='bash', eval = FALSE}
+```
 gui@SAGIS-09:/usr/src/$ sudo git clone https://github.com/xdebug/xdebug.git 
 gui@SAGIS-09:/usr/src/$ cd xdebug/
 gui@SAGIS-09:/usr/src/$ sudo ./rebuild.sh 
@@ -50,7 +56,7 @@ gui@SAGIS-09:/usr/src/$ sudo make install
 You will have the library xdebug.so inside a directory
 
 Configure php-fpm to get xdebug listening on server side
-```{r, engine='bash', eval = FALSE}
+```
 gui@SAGIS-09:/$ sudo vi /etc/php/7.0/fpm/php.ini
 ```
 add config at the end / 9009 is used because nginx/apache httpserver could use the default port 9000 with fpm
@@ -66,7 +72,7 @@ xdebug.remote_autostart=1
 
 Dev workstation side (windows10)
 Open the configurations on DEBUG / PHP (the launch.json file)
-```json
+```
 {
     // Use IntelliSense to learn about possible attributes.
     // Hover to view descriptions of existing attributes.

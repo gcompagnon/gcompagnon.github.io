@@ -8,9 +8,16 @@ output:
 published: true
 comments: false
 tags: [git,vs code, dev]
+excerpt: Setup VS Code with several GIT repositories, modules
 ---
+<div class="social-media-list">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script type="IN/Share" data-url="{{ site.url }}{{ page.url }}"></script>
+<div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
+</div>
 
-#How to get several Git repo inside the same VS Code workspace
+How to get several Git repo inside the same VS Code workspace
+=============================================================
 edit a .gitmodules file inside the main repo
 
 for example for a GIT repo (nexcloud-server fork) https://github.com/compagnon/nextcloud-server.git cloned on a folder , it can be composed of sub folder , that are GIT repo.
