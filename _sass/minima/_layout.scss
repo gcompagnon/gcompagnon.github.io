@@ -272,8 +272,9 @@
 
 
 .social-media-list {
-  display: table;
+  display: table-cell;
   margin: 0 auto;
+  line-height: 15px;
   li {
     float: left;
     margin: 0 5px;
@@ -285,7 +286,7 @@
       border: 1px solid $grey-color-light
     }
     &:hover .svg-icon { fill: currentColor; }
-  }
+  }  
 }
 
 

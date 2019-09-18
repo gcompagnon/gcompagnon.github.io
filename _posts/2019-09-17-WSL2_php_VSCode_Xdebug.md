@@ -1,34 +1,46 @@
 ---
 layout: post
 title: "WSL2 and remote debugging"
-categories: nextcloud php-fpm xdebug vscode wsl2
+categories: wsl2 xdebug vscode php-fpm
 output:
   html_document:
     highlight: pygments
 published: true
 comments: false
-tags: [nextcloud, php-fpm, debug, dev env, vscode, wsl2, xdebug]    
+tags: [nextcloud, php-fpm, debug, dev env, vscode, wsl2, xdebug]
 ---
+<div class="social-media-list">
+<a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
+<script type="IN/Share" data-url="{{ site.url }}{{ page.url }}"></script>
+<div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
+</div>
+
 How to setup PHP server (nextcloud) or python server or node js
 on [WSL2](https://docs.microsoft.com/en-us/windows/wsl/wsl2-ux-changes#accessing-windows-applications-from-linux) inside Windows10 (Build 18980)
  with remote debugging on VS Code using Extensions.
- 
+
+
  
  For ex: [PHP Debug 1.13.0 extension](https://github.com/felixfbecker/vscode-php-debug)  is the [XDebug](https://xdebug.org/) adapter inside VSCode
 
 
-#Intro
-##WSL2 
+Intro
+======
 
-WSL is aimed to be a Linux (POSIX like runtime environment inside Windows10)
+WSL2
+----
+
+Windows Subsystem for Linux is aimed to be a Linux (POSIX like runtime environment inside Windows10)
 In WSL1 it is a redirection of OS calls to underlying OS
 In WSL2 it is a Linux kernel , acting a VM inside hosting OS (W10)
 
-##Xdebug and VSCode
-Please refer to this post:
-{% post_url 2019-05-28-nextcloud-php-Xdebug %}
+Xdebug and VSCode
+-----------------
+Please refer to this post on 
+[Nextcloud Debugging]({% post_url 2019-05-28-nextcloud_php_Xdebug %})
 
-#Dynamic IP for WSL2 - Windows10 network bridge
+Dynamic IP for WSL2 - Windows10 network bridge
+==============================================
 https://docs.microsoft.com/en-us/windows/wsl/wsl2-ux-changes#accessing-windows-applications-from-linux
 
 to connect to the Windows hosted (inside VS Code) XDebug server , PHP server (php-fpm10) must contact the hosting windows. 
@@ -50,11 +62,10 @@ By default with a untouched php.ini setup , the log contains:
 [11583] I: Connecting to configured address/port: 0.0.0.0:9009.
 [11583] Log opened at 2019-09-17 14:54:46
 ```
-solution is to configure php-fpm to get xdebug listening on bridge IP / windows side instead on localhost 
-```{r, engine='bash', eval = FALSE}
+The solution is to configure php-fpm to get xdebug listening on bridge IP / windows side instead on localhost 
+```
 gui@SAGIS-09:/$ sudo vi /etc/php/7.3/fpm/php.ini
-
-... 
+...
 [xdebug]
 zend_extension="/usr/lib/php/20180731/xdebug.so"
 xdebug.remote_enable=1
@@ -65,7 +76,9 @@ xdebug.remote_host=172.20.0.1
 xdebug.remote_log = /var/log/xdebug.log
 ```
 
-#Open firewall on windows 10 : Windows Defender and XDebug sockets
+Windows Defender and XDebug sockets
+===================================
+It could be mandatory to open firewall on windows 10  
 
 Xdebug could log this: 
 
@@ -86,7 +99,8 @@ Powershell command gives the Program listening on port 9009
 Get-Process -Id (Get-NetTCPConnection -LocalPort 9009).OwningProcess
 ```
 
-# Dev workstation side (VS Code on windows10)
+Dev workstation side (VS Code on windows10)
+===========================================
 
 Because WSL2 is boxed, XDebug inside VS Code must listen on 0.0.0.0 instead of default localhost.
 https://docs.microsoft.com/en-us/windows/wsl/wsl2-ux-changes#other-networking-considerations
