@@ -3,13 +3,19 @@ layout: page
 title: About
 permalink: /about/
 ---
+List of contents:
+<ul>
+  {% for post in site.posts %}
+    <li>
+      <a href="{{ post.url }}">{{ post.title }}</a>
+    </li>
+  {% endfor %}
+</ul>
 
-Some personal insights and opinion 
+--- 
+Links: 
 
-You can find me on 
-[linkedin](https://www.linkedin.com/in/compagnon/)
-or 
-[about](https://about.me/gcompagnon/)
+[linkedin](https://www.linkedin.com/in/compagnon/) & [about](https://about.me/gcompagnon/)
 
 Public repos at GitHub:
 [Github personal sandbox](https://github.com/gcompagnon/) / 
@@ -20,3 +26,4 @@ Public repos at GitLab:
 
 Public repos at Sourceforge:
 [Sourceforge](https://sourceforge.net/u/gcompagnon/profile/) 
+
