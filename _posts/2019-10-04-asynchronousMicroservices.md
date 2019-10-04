@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "Microservices Architecture & Asynchronous Events for transactional processes"
+title: "Microservices Architecture slides"
 categories: architecture soa microservices
 output:
   html_document:
