@@ -1,14 +1,14 @@
 ---
 layout: post
-title: "Microservices Architecture & Asynchronous Events"
+title: "Microservices Architecture & Asynchronous Events for transactional processes"
 categories: architecture soa microservices
 output:
   html_document:
     highlight: pygments
 published: true
 comments: false
-tags: [IT architecture software microservices asynchronous events]
-excerpt: How to setup PHP server (nextcloud) or python server or node js on WSL2
+tags: [IT architecture software microservices asynchronous events REST gRPC API]
+excerpt: Microservices & asynchronous events for transactional processes
 ---
 <div class="social-media-list">
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
