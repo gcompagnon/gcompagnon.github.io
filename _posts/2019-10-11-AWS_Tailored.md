@@ -23,14 +23,21 @@ par [Rémi RETUREAU](https://www.linkedin.com/in/remiretureau/)
 ![plateforme ECS ](https://ecsworkshop.com/images/crystal.svg)
 
 ## Ressources
-Pour faire des schema d archi (indispensable avec une convention de nommage)
- https://cloudcraft.co/  https://draw.io
+Pour faire des schéma d archi (indispensable avec une convention de nommage):
+
+ https://cloudcraft.co/
+ ou
+ https://draw.io
+
 
 l atelier est détaillé:
+
 https://ecsworkshop.com/
 
 les codes sources des 3 applications en conteneurs, et les scripts Python ou shell pour construire la platforme en ligne de commande CLI
+
 https://github.com/brentley
+
 [Brent Langston](https://www.linkedin.com/in/brentley/)
 
 Les tasks sont en fait des containers: 1 front (en Rails) et 2 back ends (Node.js et Crystal)
@@ -42,7 +49,7 @@ Les slides (à venir . si diffusé)
 
 ## A retenir
 
-- Il faut absolument nommer ces taches dans AWS Cloud Map 
+- Il faut absolument nommer les tâches dans AWS Cloud Map 
  https://docs.aws.amazon.com/AmazonECS/latest/developerguide/create-task-definition.html
 
 => surtout pour suivre la consommation, les erreurs applicatives ... 
@@ -81,6 +88,7 @@ Run task with launch type / Fargate or EC2
 Same *Task Definition schema* - easy migration
 
 SLA : 99.99%
+
 **For small team / orchestration easy peasy**
 
 ## ECS Network
