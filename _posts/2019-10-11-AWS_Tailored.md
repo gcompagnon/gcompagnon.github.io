@@ -20,23 +20,26 @@ excerpt: Atelier technique sur l'offre AWS pour héberger une application en con
 par [Rémi RETUREAU](https://www.linkedin.com/in/remiretureau/)
 
 .. Mes notes sur cet atelier AWS / Plateforme ECS ...
+[11 octobre 2019](https://www.aws.training/learningobject/ilt?id=31682)
+
+Autre workshop avec un focus [EKS/Orchestration/Autoscaling](https://www.aws.training/learningobject/ilt?id=37901)
+
 ![plateforme ECS ](https://ecsworkshop.com/images/crystal.svg)
 
 ## Ressources
 Pour faire des schéma d archi (indispensable avec une convention de nommage):
 
- https://cloudcraft.co/
+ [cloudcraft](https://cloudcraft.co/)
  ou
- https://draw.io
+ [draw.io](https://draw.io)
 
 
 l atelier est détaillé:
-
-https://ecsworkshop.com/
+[site ecsworkshop.com](https://ecsworkshop.com/)
 
 les codes sources des 3 applications en conteneurs, et les scripts Python ou shell pour construire la platforme en ligne de commande CLI
 
-https://github.com/brentley
+[https://github.com/brentley](https://github.com/brentley)
 
 [Brent Langston](https://www.linkedin.com/in/brentley/)
 
