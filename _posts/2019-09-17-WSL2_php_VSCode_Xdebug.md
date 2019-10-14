@@ -33,7 +33,7 @@ WSL2
 
 Windows Subsystem for Linux is aimed to be a Linux (POSIX like runtime environment inside Windows10)
 In WSL1 it is a redirection of OS calls to underlying OS
-In WSL2 it is a Linux kernel , acting a VM inside hosting OS (W10)
+In WSL2 it is a Linux kernel , acting a VM inside hosting OS (W10) , localhost on Win10 redirects on the internal VNET address
 
 Xdebug and VSCode
 -----------------
@@ -141,3 +141,38 @@ Open the configurations on DEBUG / PHP (the launch.json file)
     ]
 }
 ```
+
+
+
+Listening on the external public IP
+===================================
+
+PORT RELAY / PROXY of Windows 10 on WSL2 (internal VNET)
+
+
+A server listening inside WLS2 could be accessed by localhost on Win10.
+https://localhost would bridge to the dynamic VNET IP address inside WSL2.
+
+For being able to redirect external IP to this internal dynamic VNET IP address, Win10 provides *Port Proxy* :
+
+**Powershell:**
+```
+netsh interface portproxy add v4tov4 listenaddress=<ip or dns> listenport=80 connectaddress=localhost connectport=80
+```
+
+```
+netsh interface portproxy show all
+
+Écouter sur ipv4 :             Connecter à ipv4 :
+
+Adresse         Port        Adresse         Port
+--------------- ----------  --------------- ----------
+<ip or dns>             80          localhost       80
+```
+
+Remove the port proxy
+```
+netsh interface portproxy delete v4tov4 listenaddress=<ip> listenport=9000
+```
+
+more info: [Docs from Microsoft](https://docs.microsoft.com/en-us/windows-server/networking/technologies/netsh/netsh-interface-portproxy)
