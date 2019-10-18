@@ -88,7 +88,7 @@ https://eksworkshop.com/intro_to_rbac/
 # AMAZON EKS
 
 les fichiers dans CLoud9 / IDE en SaaS 
-![envrionnement cloud9 ](/files/Guillaume_EKS.zip)
+![environnement cloud9 ](https://gcompagnon.github.io/files/Guillaume_EKS.zip)
 
 Le workshop consiste à configurer des habilitations RBAC / Role Base Authorization Control
 à déployer des microservices, installer HELM et quelques Chart (le caralogue de composants/ market store)
