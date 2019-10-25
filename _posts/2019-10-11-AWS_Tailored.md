@@ -48,7 +48,8 @@ Les tasks sont en fait des containers: 1 front (en Rails) et 2 back ends (Node.j
 La page officielle pour ECS:
 https://docs.aws.amazon.com/fr_fr/AmazonECS/latest/developerguide/Welcome.html
 
-Les slides (à venir . si diffusé)
+Les slides 
+<object data="/pdf/20191011_AWS_ECS.pdf" width="850" height="650" type='application/pdf'/>
 
 ## A retenir
 
