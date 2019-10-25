@@ -49,7 +49,8 @@ La page officielle pour ECS:
 https://docs.aws.amazon.com/fr_fr/AmazonECS/latest/developerguide/Welcome.html
 
 Les slides 
-<object data="/pdf/20191011_AWS_ECS.pdf" width="850" height="650" type='application/pdf'/>
+
+<a href="/pdf/20191011_AWS_ECS.pdf" target="_blank">Les slides!</a>
 
 ## A retenir
 

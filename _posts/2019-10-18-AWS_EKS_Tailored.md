@@ -72,8 +72,8 @@ les codes sources des 3 applications en conteneurs microservices , et les script
 La page officielle pour EKS:
 https://docs.aws.amazon.com/eks/latest/developerguide/Welcome.html
 
-Les slides 
-<object data="/pdf/20191018_AWS_EKS.pdf" width="850" height="650" type='application/pdf'/>
+
+<a href="/pdf/20191018_AWS_EKS.pdf" target="_blank">Les slides!</a>
 
 ## A retenir
 
