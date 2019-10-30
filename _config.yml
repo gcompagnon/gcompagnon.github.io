@@ -41,6 +41,8 @@ minima:
       github: compagnon
       linkedin: compagnon
       rss: rss
+      github2: gcompagnon
+      gitlab: compagnon
 
 jekyll-mentions:
   base_url: https://twitter.com
