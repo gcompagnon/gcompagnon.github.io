@@ -17,7 +17,7 @@ excerpt: quick notes about Data Platform
 </div>
 
 
-![plateforme EKS ](/images/20191105-illustration.png)
+![data platform illustration](/images/20191105_illustration.png)
 
 # Context
 During many years now, driven by Big data/data-avid projects, streaming platform architecture (lambda or kappa ) is the pattern proposed for ingesting business-valued data into a persistant repository (database, key/value store/object /column storage).
@@ -60,7 +60,7 @@ Splunk agrees to acquire Streamlio, a company aimed to support Apache Pulsar
 
 Implements real-time data pipelines and streaming apps. It is horizontally scalable, fault-tolerant, wicked fast, and runs in production in thousands of companies
 
-https://en.wikipedia.org/wiki/Apache_Kafka
+[https://en.wikipedia.org/wiki/Apache_Kafka](https://en.wikipedia.org/wiki/Apache_Kafka)
 
 # Apache Pulsar
 • Building a unified data processing stack with Apache Pulsar and Apache Spark :
@@ -76,17 +76,12 @@ Cons
 
 # Bookmark links
 
-a basic example of Pub/Sub 
-https://www.syscrest.com/2019/10/basic-pulsar-producer-and-consumer-json-helm-kubernetes/
+[a basic example of Pub/Sub](https://www.syscrest.com/2019/10/basic-pulsar-producer-and-consumer-json-helm-kubernetes/)
 
-Kafka is not a database, Kafka streams lacks of snapshots/checkpointing
-https://www.jesse-anderson.com/2019/10/why-i-recommend-my-clients-not-use-ksql-and-kafka-streams/
+[Kafka is not a database, Kafka streams lacks of snapshots/checkpointing](https://www.jesse-anderson.com/2019/10/why-i-recommend-my-clients-not-use-ksql-and-kafka-streams/)
 
-Why Nutanix Beam went ahead with Apache Pulsar instead of Apache Kafka?
-https://medium.com/@yuvarajl/why-nutanix-beam-went-ahead-with-apache-pulsar-instead-of-apache-kafka-1415f592dbbb
+[Why Nutanix Beam went ahead with Apache Pulsar instead of Apache Kafka?](https://medium.com/@yuvarajl/why-nutanix-beam-went-ahead-with-apache-pulsar-instead-of-apache-kafka-1415f592dbbb)
 
-We helped Airbus create a real-time big data project streaming 2+ billion events per day
-https://www.bigdatainstitute.io/success-stories/airbus-success-story/
+[We helped Airbus create a real-time big data project streaming 2+ billion events per day](https://www.bigdatainstitute.io/success-stories/airbus-success-story/)
 
-Life Beyond Kafka With Apache Pulsar
-https://dzone.com/articles/life-beyond-kafka-with-apache-pulsar
+[Life Beyond Kafka With Apache Pulsar](https://dzone.com/articles/life-beyond-kafka-with-apache-pulsar)
