@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "AFME paper on Public CLoud adoption in Capital Markets industry"
+title: "AFME paper on Public Cloud adoption in Capital Markets industry"
 categories: cloud capital market
 output:
   html_document:
@@ -8,7 +8,7 @@ output:
 published: true
 comments: false
 tags: [cloud capital market]
-excerpt: AFME paper on Public CLoud adoption in Capital Markets industry
+excerpt: Quick notes/bullet points about AFME paper on Public Cloud adoption in Capital Markets industry
 ---
 <div class="social-media-list">
 <a href="https://twitter.com/share?ref_src=twsrc%5Etfw" class="twitter-share-button" data-show-count="false">Tweet</a>
@@ -19,7 +19,7 @@ excerpt: AFME paper on Public CLoud adoption in Capital Markets industry
 
 
 # Context
-Theses Bullet points are taken from a AFME paper about Public CLoud adoption/resistence in Capital Markets industry
+Theses bullet points are taken from an AFME paper about Public CLoud adoption/resistence in Capital Markets industry
 
 The Association for Financial Markets in Europe (AFME) is the voice of all
 Europe’s wholesale financial markets, providing expertise across a broad
@@ -38,7 +38,7 @@ One of the most problable IT strategy for the next 2-5 years is a Cloud-First ap
 
 This approach is founded on a Secure, Hybrid , Multi-cloud offering.
 
-Not a Bigbang approach, but a *complex*, distinct migration roads:
+Not a Bigbang approach, but a *complex*, distinct migration roadmap to plan:
    - from the straightforward "lift and shift" 
    - to the costy cloud-native rewriting applicationg)
 
@@ -48,7 +48,7 @@ Show stoppers are for each targets :
 
 * New Assessment process to define : 
 
-<b>Public Cloud is not a product as another IT software product.</b>  No the same risk and contraints coming from regulation to respect (GDPR...) or to avoid (US CLoud Act)
+<b>Public Cloud is not an another IT software product.</b>  No the same risk and contraints coming from regulation to respect (GDPR...) or to avoid (US Cloud Act)
 
 page 11
 "The bank’s cloud risk management framework is often more scrutinised that the product risk management framework, giving the bank more discretion in managing the product risk (which has several aspects of risks such as AML, financial, reputational etc) rather than cloud risks (which is technology, cyber & vendor risk)."
