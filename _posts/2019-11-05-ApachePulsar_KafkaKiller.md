@@ -55,23 +55,59 @@ Apache Kafka is supported (commercial license) mainly by Confluent and Cloudera 
 October 2019:
 Splunk agrees to acquire Streamlio, a company aimed to support Apache Pulsar
 
+# Solutions (opensource)
 
-# Apache Kafka
+## Apache Kafka
 
-Implements real-time data pipelines and streaming apps. It is horizontally scalable, fault-tolerant, wicked fast, and runs in production in thousands of companies
+Implements real-time data pipelines and streaming apps. It is horizontally scalable, fault-tolerant, wicked fast, and runs in production in thousands of companies.
+
+Kafka is a great publish/subscribe system (only/no PtP) distributed (with several brokers and local storage) or monolithic (with co-located storage)
+Data are stored inside one to several Partitions as a Topic, (local internal storage of brokers).
+Data is indexed by offset id in the topic.
+
+There are plenty of client library implemented the same API. (strong pros argue)
 
 [https://en.wikipedia.org/wiki/Apache_Kafka](https://en.wikipedia.org/wiki/Apache_Kafka)
 
-# Apache Pulsar
+Kafka requires a process supervisor (Apache Zookeeper)
+
+Confluent proposes a SQL layer (KSQL propriertary library). their strategy is to sell Kafka as a DBMS (would lead to perf problems?)
+
+
+https://medium.com/@durgaswaroop/a-practical-introduction-to-kafka-storage-internals-d5b544f6925f
+
+## ETCD
+
+https://etcd.io/
+Distributed , reliable Key/value store
+
+embedded inside Kubernetes for service discoverty and cluster state/config
+
+## Apache BookKeeper
+
+https://bookkeeper.apache.org/
+
+Lowlatency storage service (scalable / distributed)
+
+## Redis
+
+https://redis.io/
+
+messagebroker / in memory (low latency) data structure, or key/value database
+
+## Apache Pulsar
 • Building a unified data processing stack with Apache Pulsar and Apache Spark :
 
 Apache Pulsar is a cloud-native event streaming system. It deploys a cloud-native architecture and a segment-centric storage. Pulsar provides a unified data view on both historic and real-time data. Hence it can be easily integrated with a unified computing engine to build a unified data processing stack.
 
 Pros
--No limit on Topics numbers 
--PubSub AND Message Queuing
--based on Bookkeeper(for persistence)
+
+- No limit on Topics numbers 
+- PubSub AND Message Queuing
+- based on Bookkeeper(for persistence)
+
 Cons
+
 - less REX than Kafka
 
 # Bookmark links
@@ -85,3 +121,5 @@ Cons
 [We helped Airbus create a real-time big data project streaming 2+ billion events per day](https://www.bigdatainstitute.io/success-stories/airbus-success-story/)
 
 [Life Beyond Kafka With Apache Pulsar](https://dzone.com/articles/life-beyond-kafka-with-apache-pulsar)
+
+[Why I Recommend My Clients NOT Use KSQL and Kafka Streams](https://www.jesse-anderson.com/2019/10/why-i-recommend-my-clients-not-use-ksql-and-kafka-streams/)
