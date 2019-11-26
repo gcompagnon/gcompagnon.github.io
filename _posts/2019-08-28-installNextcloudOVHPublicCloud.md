@@ -313,16 +313,17 @@ memory_limit = 512M
 
 
 - augmenter le nombre de process allouées au traitement PHP
+(dans le cas où le serveur hébergeant le service "nextcloud" est un b2-7 / 2 vCores 7Go de RAM)
 
 ```
 sudo vi /etc/php/7.3/fpm/pool.d/www.conf
 ```
 
 ```
-pm.max_children = 20
-pm.start_servers = 5
-pm.min_spare_servers = 1
-pm.max_spare_servers = 15
+pm.max_children = 70
+pm.start_servers = 20
+pm.min_spare_servers = 10
+pm.max_spare_servers = 35
 ```
 
 

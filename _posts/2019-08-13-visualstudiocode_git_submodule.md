@@ -42,3 +42,48 @@ get the code:
 ```
  git submodule update --init
  ```
+
+
+How to crewind 1 commit
+======================================================
+```
+git checkout <feature_branch>
+git reset HEAD~1
+git reset --hard HEAD~1
+```
+
+```
+git push --force-with-lease origin <feature_branch>
+```
+
+
+
+```
+git commit amend --author "Author Name <email@address.com>" --signoff
+```
+
+How to cherry pick commits / squash commits on a branch before the rebase
+======================================================
+
+Objective is to squash lot of commits into just one
+
+Rewind before the pile of commits
+```
+git checkout <feature_branch>
+git reset --hard <sha1-commit-id>
+git push origin HEAD --force
+```
+
+Choose some commit / cherry pick
+
+```
+git cherry-pick C
+ ```
+
+Rebase and merge 
+```
+ git rebase master
+ ```
+
+
+ 
