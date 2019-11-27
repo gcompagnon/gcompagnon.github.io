@@ -100,6 +100,8 @@ Type "help" for help.
 
 template1=# ALTER USER nextcloud CREATEDB;
 template1=# CREATE DATABASE nextcloud16 OWNER nextcloud;
+template1=# GRANT ALL PRIVILEGES ON DATABASE nextcloud16 to nextcloud;
+
 
 WARNING:  could not flush dirty data: Function not implemented
 CREATE DATABASE
@@ -115,7 +117,7 @@ sudo -u postgres vi /etc/postgresql/9.6/main/postgresql.conf
 et modifier la ligne #listen_addresses = 'localhost' en
 listen_addresses = 'postgres.\<domain>.com'
 
-- permetre les connexions provenant de la plage des adresses privées
+- permettre les connexions provenant de la plage des adresses privées
 
 ```
 sudo vi /etc/postgresql/9.6/main/pg_hba.conf
@@ -125,6 +127,12 @@ ajouter la ligne :
 host    all             all             10.72.1.0/24            md5 
 ```
 
+- configurer le serveur en fonction de la taille du serveur
+par exemple pour un serveur 2 cores et 7Go de RAM
+```
+shared_buffers = 1792MB  (1/4 de la RAM)
+work_mem = 18MB  (1/4 de la RAM / nb de connections simulatée)
+```
 - redemarrer postgres
 
 ```
@@ -452,4 +460,61 @@ Chiffrer l'espace de stockage principal
 
 Aller dans Paramètres (icone haut et droit) et dans "Sécurité"
 Ajouter l'adresse IP Publique de Sagis dans Liste blanche des IP pour attaque par force brute:
- 193.248.39.218  
+ 193.248.39.218
+
+
+# C. Configuration des tâches de fond
+
+ Dans la console d'administration, dans les Paramètres de base, il faut choisir le système en charge d'exécuter les travaux en arrière plan.
+
+ Par défaut, AJAX est choisi mais le paramètre recommandé est 'cron'
+
+Une explicatin précise est disponible [ici](https://docs.nextcloud.com/server/16/admin_manual/configuration_server/background_jobs_configuration.html#cron)
+
+```
+crontab -u nextcloud -e
+```
+Ajouter cette ligne
+```
+ */5  *  *  *  * php -f /home/nextcloud/nextcloud-server/cron.php
+```
+CTRL^X
+
+```
+nextcloud@nextcloud-prod:~$ crontab -u nextcloud -l
+```
+
+# D. Réinitialisation de Nextcloud
+
+Pour démarrer un serveur Nextcloud avec une base de données réinitialisées , et aucun document enregistré:
+
+```
+sudo vi nextcloud-server/config/config.php
+
+```
+remplacer la ligne:
+```
+'installed' => true,
+```
+par
+```
+'installed' => false,
+```
+
+*et*
+
+creer un fichier vide dans le répertoire config
+```
+sudo vi nextcloud-server/config/CAN_INSTALL
+```
+
+# E. Environnement par défaut à la création d'un compte Client
+
+Le répertoire par défaut est défini par le theming (défini dans config.php):
+```
+ls nextcloud-server/themes/sagis/core/skeleton
+
+Personnel
+
+```
+https://docs.nextcloud.com/server/16/admin_manual/configuration_files/default_files_configuration.html
