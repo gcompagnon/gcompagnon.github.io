@@ -49,15 +49,15 @@ Options:
 
 ## Etapes lors de la création d'un compte client / provisionning client
 
-Les documents mis à disposition par le Coffre-Fort Electronique sont déposés sur le compte de l'administrateur principal (ayant le "nom à afficher" de la société \<nomSociete>)
+Les documents mis à disposition par le Coffre-Fort Electronique sont déposés sur le compte de l'administrateur principal (ayant le "nom à afficher" de la société \<nomSociete> 
 L'arborescence du coffre-fort de l'administrateur "Principal" est donc organisée comme tel:
 
 ```
 --
- |-CLIENT1/<nomSociete>/DossierClient
- |-CLIENT2/<nomSociete>/DossierClient
+ |-CLIENT1/DossierClient
+ |-CLIENT2/DossierClient
  .
- |-CLIENTn/<nomSociete>/DossierClient
+ |-CLIENTn/DossierClient
 ```
 
 Un nouveau compte client est un structure ne contenant que :
@@ -73,6 +73,12 @@ Si le client fait parti d'une famille/indivision (un groupe ayant été crée à
 Dans la configuration *config.php* , la variable 'skeletondirectory' contient le répertoire utilisé comme modèle pour un nouvel utilisateur.
 
 Ici , le répertoire 'nextcloud-server/themes/\<nom_theme>/core/skeleton' a été choisi, et ne contient qu'un répertoire vide nommé "Personnel"
+
+### Pour info: repertoire nommé de partage
+Dans la configuration config/*config.php* , la variable 'share_folder' permet d'afficher l'ensemble des partages dans un répertoire à la racine du dossier de l'utilisateur:
+```
+'share_folder' => '/<nomSociete>/',
+```
 
 # B. Créer un espace pour un nouveau client en ligne de commande
 
@@ -106,7 +112,13 @@ unset OC_PASS
 ./occ user:setting client1 core lang fr
 ./occ user:setting client1 files quota  "none"
 ```
-- Partager du répertoine avec ce client.
+- Partager le répertoine dans la console d'administration de Nextcloud
+
+```
+--
+ |-CLIENT1/<nomSociete>/DossierClient
+```
+-CLIENTn/<nomSociete>/DossierClient avec ce client.
 
 # C. Créer un espace pour un groupe de client / indivision
 

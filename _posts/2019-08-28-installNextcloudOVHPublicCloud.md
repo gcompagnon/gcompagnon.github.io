@@ -136,7 +136,7 @@ work_mem = 18MB  (1/4 de la RAM / nb de connections simulatée)
 - redemarrer postgres
 
 ```
-sudo service postgres restart
+sudo service postgresql restart
 ```
 
 - faire en sorte que postgres redémarre à chaque reboot d instance
@@ -342,6 +342,13 @@ sudo update-rc.d php7.3-fpm enable
 sudo update-rc.d nginx enable
 ```
 
+## 8 - demarrer les serveurs
+
+```
+sudo service nginx start
+
+ sudo service php7.3-fpm start
+```
 
 
 # B. Installation de Nextcloud
