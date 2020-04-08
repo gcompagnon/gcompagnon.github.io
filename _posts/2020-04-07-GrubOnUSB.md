@@ -16,6 +16,15 @@ excerpt: cookbook pour une clé USB multiboot
 <div class="fb-share-button" data-href="{{ site.url }}{{ page.url }}" data-layout="button" data-size="small"><a target="_blank" href="https://www.facebook.com/sharer/sharer.php?u={{ site.url }}{{ page.url }}" class="fb-xfbml-parse-ignore">Partager</a></div>
 </div>
 
+# Objectif
+le but est d obtenir une clé USB multiboot avec :
+- le programme d installation de mise à jour de WIndows 10 , 
+ - l utilitaire de partition GParted (plus )
+ - un linux en live cd
+
+WIndows 10 doit être présent sur une partition dédiée (NTFS) 
+ j'ai décidé de démarrer le linux depuis une partition dédiée (fat32) pour une question de performance
+ j'ai conservé la configuration du lancement de Debian en ISO
 
 # Récupération des ISO pour les systèmes
 
