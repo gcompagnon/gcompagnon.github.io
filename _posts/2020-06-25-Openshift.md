@@ -1,6 +1,6 @@
 ---
 layout: post
-title: "présentation du dév Cloud Native avec RedHat Openshit"
+title: "Dév Cloud Native avec RedHat Openshift"
 categories: notes openshift
 output:
   html_document:
